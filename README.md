@@ -1,6 +1,6 @@
 ### Reddit Scraper
 
-Reddit Scraper is an [Apify actor](https://apify.com/actors) for extracting data from [Reddit](https://www.reddit.com/). It allows you to extract posts and comments together with some user info. It is build on top of [Apify SDK](https://sdk.apify.com/) and you can run it both on [Apify platform](https://my.apify.com) and locally.
+Reddit Scraper is an [Apify actor](https://apify.com/actors) for extracting data from [Reddit](https://www.reddit.com/). It allows you to extract posts and comments together with some user info without login. It is build on top of [Apify SDK](https://sdk.apify.com/) and you can run it both on [Apify platform](https://my.apify.com) and locally.
 
 - [Input](#input)
 - [Output](#output)
