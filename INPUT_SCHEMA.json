@@ -13,6 +13,14 @@
             "patternValue": "https:\\/\\/www\\.reddit\\.com\\/*.*",
             "uniqueItems": true
         },  
+        "useBuiltInSearch":{
+            "title": "Use built-in search and ignore startUrls",
+            "type": "boolean",
+            "description": "Use the fields bellow to perform a search and scrape the result",
+            "editor": "checkbox",
+            "sectionCaption": "Search",
+            "sectionDescription": "This fields will be used on the search"
+        },
         "type": {
             "title": "Search type",
             "type": "string",
@@ -38,19 +46,25 @@
             "title": "Search results limit",
             "type": "integer",
             "description": "How many search results should be processed",
-            "editor": "number"
+            "editor": "number",
+            "prefill": 20,
+            "default": 20
         },
         "maxPostCount": {
             "title": "Maximum Post Count",
             "type": "integer",
-            "description": "How many posts should be scraped at max",
-            "editor": "number"
+            "description": "How many posts per page should be scraped at max",
+            "editor": "number",
+            "prefill": 100,
+            "default": 100
         },
         "maxComments": {
             "title": "Maximum Comments Count",
             "type": "integer",
-            "description": "How many comments should be saved at max",
-            "editor": "number"
+            "description": "How many comments per page should be scraped at max",
+            "editor": "number",
+            "prefill": 100,
+            "default": 100
         },
         "extendOutputFunction": {
             "title": "Extended Output Function",

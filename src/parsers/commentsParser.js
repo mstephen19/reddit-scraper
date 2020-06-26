@@ -3,13 +3,14 @@
 const Apify = require('apify');
 
 exports.commentsParser = async ({ page, request }) => {
-    await page.waitForSelector('[data-click-id=upvote] ~div');
-    const data = await page.evaluate(() => {
-        const numberOfVotes = Number(document.querySelector('[data-click-id=upvote] ~div').innerText);
-        const postedBy = document.querySelector('a[href^="/user/"]').innerText;
-        const postedDate = document.querySelector('a[data-click-id=timestamp]').innerText;
-        const title = document.querySelector('h1').innerText;
-        const text = document.querySelector('div[data-click-id=text]').innerText;
+    const postId = request.url.match(/comments\/([^/]+)\/.+/)[1];
+    await page.waitForSelector(`[id=t3_${postId}`);
+    const data = await page.$eval(`[id=t3_${postId}`, (el) => {
+        const numberOfVotes = Number($(el).find('[id^=vote-arrows] div').html());
+        const postedBy = $('a[href^="/user/"]').text();
+        const postedDate = $('a[data-click-id=timestamp]').text();
+        const title = $('h1').text();
+        const text = $('div[data-click-id=text]').text();
 
         return {
             numberOfVotes,
@@ -22,6 +23,9 @@ exports.commentsParser = async ({ page, request }) => {
 
     const postUrl = request.url;
     const communityName = postUrl.match(/reddit\.com\/(.*)\/comments.*/)[1];
+
+    await page.click('button._2JBsHFobuapzGwpHQjrDlD.j9NixHqtN2j8SKHcdJ0om._2nelDm85zKKmuD94NequP0');
+    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 10 });
 
     const comments = await page.$$eval('[id^=t1]', (elements) => {
         const temp = [];
