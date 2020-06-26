@@ -5,7 +5,7 @@ const Apify = require('apify');
 exports.commentsParser = async ({ page, request }) => {
     await page.waitForSelector('[data-click-id=upvote] ~div');
     const data = await page.evaluate(() => {
-        const numberOfVotes = document.querySelector('[data-click-id=upvote] ~div').innerText;
+        const numberOfVotes = Number(document.querySelector('[data-click-id=upvote] ~div').innerText);
         const postedBy = document.querySelector('a[href^="/user/"]').innerText;
         const postedDate = document.querySelector('a[data-click-id=timestamp]').innerText;
         const title = document.querySelector('h1').innerText;
