@@ -13,7 +13,7 @@ Apify.main(async () => {
         throw new Error('startUrls or built-in search must be used!');
     }
 
-    const requestList = await Apify.openRequestList('start-urls', startUrls.map((url) => ({ url })));
+    const requestList = await Apify.openRequestList('start-urls', useBuiltInSearch ? [] : startUrls.map((url) => ({ url })));
     const requestQueue = await Apify.openRequestQueue();
 
     if (useBuiltInSearch) {
