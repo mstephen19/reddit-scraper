@@ -2,7 +2,7 @@ const Apify = require('apify');
 const safeEval = require('safe-eval');
 const Parsers = require('./parsers');
 const { log, getUrlType, getSearchUrl, gotoFunction } = require('./tools');
-const { EnumBaseUrl, EnumURLTypes } = require('./constants');
+const { EnumURLTypes } = require('./constants');
 
 Apify.main(async () => {
     const input = await Apify.getInput();
@@ -42,7 +42,6 @@ Apify.main(async () => {
         launchPuppeteerOptions: {
             ...proxy,
             stealth: true,
-            devtools: true,
         },
 
         gotoFunction,
@@ -57,7 +56,7 @@ Apify.main(async () => {
                 process.exit();
             }
 
-            const { page, request, session } = context;
+            const { page, request } = context;
             log.info(`Processing ${request.url}...`);
 
             const urlType = getUrlType(request.url);

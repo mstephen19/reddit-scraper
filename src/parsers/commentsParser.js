@@ -7,7 +7,7 @@ exports.commentsParser = async ({ page, request, maxComments }) => {
     const postId = request.url.match(/comments\/([^/]+)\/.+/)[1];
     await page.waitForSelector(`[id=t3_${postId}`);
     const data = await page.$eval(`[id=t3_${postId}`, (el) => {
-        const numberOfVotes = Number($(el).find('[id^=vote-arrows] div').html());
+        const numberOfVotes = $(el).find('[id^=vote-arrows] div').html();
         const postedBy = $(el).find('a[href^="/user/"]').html();
         const title = $(el).find('h1').text();
         const postedDate = $(el).find('a[data-click-id=timestamp]').text();
