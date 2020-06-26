@@ -3,7 +3,7 @@
 const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
 
-exports.commentsParser = async ({ page, request, maxComments }) => {
+exports.commentsParser = async ({ page, request, maxComments, extendOutputFunction }) => {
     const postId = request.url.match(/comments\/([^/]+)\/.+/)[1];
     await page.waitForSelector(`[id=t3_${postId}`);
     const data = await page.$eval(`[id=t3_${postId}`, (el) => {
@@ -72,6 +72,17 @@ exports.commentsParser = async ({ page, request, maxComments }) => {
         ...data,
         comments,
     };
+
+    let userResult = {};
+    if (extendOutputFunction) {
+        userResult = await page.evaluate((functionStr) => {
+            // eslint-disable-next-line no-eval
+            const f = eval(functionStr);
+            return f();
+        }, extendOutputFunction);
+    }
+
+    Object.assign(post, userResult);
 
     await Apify.pushData(post);
 };

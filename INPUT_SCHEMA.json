@@ -71,14 +71,15 @@
             "title": "Extended Output Function",
             "type": "string",
             "description": "Here you can write your custom javascript code to extract custom data from the page.",
-            "editor": "javascript"
+            "editor": "javascript",
+            "prefill": "($) => { return {} }"
         },
         "proxy": {
             "title": "Proxy configuration",
             "type": "object",
-            "description": "(Optional) Either use Apify proxy, or provide your own proxy servers.",
+            "description": "Either use Apify proxy, or provide your own proxy servers.",
             "default": {
-                "useApifyProxy": false
+                "useApifyProxy": true
             },
             "editor": "proxy"
         }

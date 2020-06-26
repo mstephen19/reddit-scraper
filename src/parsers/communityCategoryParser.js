@@ -3,7 +3,7 @@
 const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
 
-exports.communityCategoryParser = async ({ requestQueue, request, page, maxPostCount }) => {
+exports.communityCategoryParser = async ({ request, page, maxPostCount, extendOutputFunction }) => {
     const { community } = request.userData;
     let loading = true;
     let previousPostLength = -1;
@@ -34,6 +34,17 @@ exports.communityCategoryParser = async ({ requestQueue, request, page, maxPostC
         previousPostLength = posts.length;
     }
 
+    let userResult = {};
+    if (extendOutputFunction) {
+        userResult = await page.evaluate((functionStr) => {
+            // eslint-disable-next-line no-eval
+            const f = eval(functionStr);
+            return f();
+        }, extendOutputFunction);
+    }
+
     community.posts = posts.filter((post) => !!post.title);
+    Object.assign(community, userResult);
+
     await Apify.pushData(community);
 };

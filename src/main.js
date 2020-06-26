@@ -1,5 +1,4 @@
 const Apify = require('apify');
-const safeEval = require('safe-eval');
 const Parsers = require('./parsers');
 const { log, getUrlType, getSearchUrl, gotoFunction } = require('./tools');
 const { EnumURLTypes } = require('./constants');
@@ -19,18 +18,6 @@ Apify.main(async () => {
     if (useBuiltInSearch) {
         for (const search of searches) {
             await requestQueue.addRequest({ url: getSearchUrl({ search, type }) });
-        }
-    }
-
-    let extendOutputFunctionObj;
-    if (typeof extendOutputFunction === 'string' && extendOutputFunction.trim() !== '') {
-        try {
-            extendOutputFunctionObj = safeEval(extendOutputFunction);
-        } catch (e) {
-            throw new Error(`'extendOutputFunction' is not valid Javascript! Error: ${e}`);
-        }
-        if (typeof extendOutputFunctionObj !== 'function') {
-            throw new Error('extendOutputFunction is not a function! Please fix it or use just default ouput!');
         }
     }
 
@@ -70,11 +57,11 @@ Apify.main(async () => {
                 case EnumURLTypes.COMUMUNITIES_AND_USERS:
                     return Parsers.communitiesAndUsersParser({ requestQueue, ...context });
                 case EnumURLTypes.COMMENTS:
-                    return Parsers.commentsParser({ requestQueue, ...context });
+                    return Parsers.commentsParser({ requestQueue, ...context, extendOutputFunction });
                 case EnumURLTypes.COMMUNITY:
                     return Parsers.communityParser({ requestQueue, ...context, maxComments });
                 case EnumURLTypes.COMMUNITY_CATEGORY:
-                    return Parsers.communityCategoryParser({ requestQueue, ...context, maxPostCount });
+                    return Parsers.communityCategoryParser({ requestQueue, ...context, maxPostCount, extendOutputFunction });
                 default:
                     log.warning('Url does not match any parser');
             }
