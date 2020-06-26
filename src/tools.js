@@ -6,10 +6,12 @@ log.setLevel(log.LEVELS.DEBUG);
 
 exports.log = log;
 
-exports.getSearchUrl = (keyword) => {
+exports.getSearchUrl = ({ search, type }) => {
+    const searchType = type === 'posts' ? 'link' : 'sr,user';
+
     const params = new URLSearchParams([
-        ['origin', 'keywordsearch'],
-        ['keyword', keyword],
+        ['q', search],
+        ['type', searchType],
     ]);
     return `${EnumBaseUrl.SEARCH_URL}?${params.toString()}`;
 };

@@ -35,12 +35,11 @@
                 "Communities and users"
             ]
         },
-        "search": {
+        "searches": {
             "title": "Search",
-            "type": "string",
+            "type": "array",
             "description": "Here you can provide a search query which will be used to search Reddit's topics.",
-            "editor": "textfield",
-            "prefill": "Jeans"
+            "editor": "stringList"
         },
         "maxItems": {
             "title": "Search results limit",

@@ -7,21 +7,19 @@ const { EnumBaseUrl, EnumURLTypes } = require('./constants');
 Apify.main(async () => {
     const input = await Apify.getInput();
 
-    const { proxy, startUrls, maxItems, search, extendOutputFunction, maxPostCount, maxComments, type } = input;
+    const { proxy, startUrls, maxItems, searches, extendOutputFunction, maxPostCount, maxComments, useBuiltInSearch, type } = input;
 
-    if (!startUrls && !search) {
-        throw new Error('startUrls or search parameter must be provided!');
-    }
-
-    if (startUrls && !startUrls.length && !search) {
-        startUrls.push(EnumBaseUrl.MAIN_URL);
+    if (!startUrls && !useBuiltInSearch) {
+        throw new Error('startUrls or built-in search must be used!');
     }
 
     const requestList = await Apify.openRequestList('start-urls', startUrls.map((url) => ({ url })));
     const requestQueue = await Apify.openRequestQueue();
 
-    if (search) {
-        await requestQueue.addRequest({ url: getSearchUrl(search), userData: { type: EnumURLTypes.SEARCH } });
+    if (useBuiltInSearch) {
+        for (const search of searches) {
+            await requestQueue.addRequest({ url: getSearchUrl({ search, type }) });
+        }
     }
 
     let extendOutputFunctionObj;
@@ -75,7 +73,7 @@ Apify.main(async () => {
                 case EnumURLTypes.COMMENTS:
                     return Parsers.commentsParser({ requestQueue, ...context });
                 case EnumURLTypes.COMMUNITY:
-                    return Parsers.communityParser({ requestQueue, ...context });
+                    return Parsers.communityParser({ requestQueue, ...context, maxComments });
                 case EnumURLTypes.COMMUNITY_CATEGORY:
                     return Parsers.communityCategoryParser({ requestQueue, ...context, maxPostCount });
                 default:
