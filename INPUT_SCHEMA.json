@@ -72,7 +72,7 @@
             "type": "string",
             "description": "Here you can write your custom javascript code to extract custom data from the page.",
             "editor": "javascript",
-            "prefill": "($) => { return {} }"
+            "prefill": "async () => {\n  return $('title').text();\n\n}"
         },
         "proxy": {
             "title": "Proxy configuration",
