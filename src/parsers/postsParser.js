@@ -30,6 +30,6 @@ exports.postsParser = async ({ requestQueue, page, request, maxPostCount }) => {
     posts.splice(maxPostCount);
 
     for (const url of posts) {
-        await requestQueue.addRequest({ url });
+        await requestQueue.addRequest({ url, userData: request.userData });
     }
 };

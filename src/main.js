@@ -1,7 +1,14 @@
 const Apify = require('apify');
 const Parsers = require('./parsers');
-const { log, getUrlType, getSearchUrl, gotoFunction } = require('./tools');
 const { EnumURLTypes } = require('./constants');
+const {
+    log,
+    getUrlType,
+    getSearchUrl,
+    gotoFunction,
+    getSearchType,
+    hasReachedScrapeLimit,
+} = require('./tools');
 
 Apify.main(async () => {
     const input = await Apify.getInput();
@@ -22,12 +29,18 @@ Apify.main(async () => {
         throw new Error('startUrls or built-in search must be used!');
     }
 
-    const requestList = await Apify.openRequestList('start-urls', useBuiltInSearch ? [] : startUrls.map((url) => ({ url })));
+    const requestList = await Apify.openRequestList(
+        'start-urls',
+        useBuiltInSearch ? [] : startUrls.map((url) => ({
+            url,
+            userData: { searchType: getSearchType(url) },
+        })),
+    );
     const requestQueue = await Apify.openRequestQueue();
 
     if (useBuiltInSearch) {
         for (const search of searches) {
-            await requestQueue.addRequest({ url: getSearchUrl({ search, type }) });
+            await requestQueue.addRequest({ url: getSearchUrl({ search, type }), userData: { searchType: type } });
         }
     }
 
@@ -46,17 +59,17 @@ Apify.main(async () => {
         handlePageFunction: async (context) => {
             const dataset = await Apify.openDataset();
             const { itemCount } = await dataset.getInfo();
+            const { page, request } = context;
+            const { searchType } = request.userData;
+            const urlType = getUrlType(request.url);
 
-            if (itemCount >= maxPostCount) {
+            if (hasReachedScrapeLimit({ searchType, maxPostCount, maxCommunitiesAndUsers, itemCount })) {
                 log.info('Actor reached the max items limit. Crawler is going to halt...');
                 log.info('Crawler Finished.');
                 process.exit();
             }
 
-            const { page, request } = context;
             log.info(`Processing ${request.url}...`);
-
-            const urlType = getUrlType(request.url);
             log.debug(`Type: ${urlType}`);
 
             await Apify.utils.puppeteer.injectJQuery(page);

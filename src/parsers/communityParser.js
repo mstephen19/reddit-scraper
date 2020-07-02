@@ -31,6 +31,11 @@ exports.communityParser = async ({ requestQueue, request, page }) => {
 
     for (const categoryUrl of categories) {
         const category = categoryUrl.split('/').reverse().filter(Boolean)[0];
-        await requestQueue.addRequest({ url: categoryUrl, userData: { community: { ...community, category } } }, { forefront: true });
+        await requestQueue.addRequest({
+            url: categoryUrl,
+            userData: { ...request.userData, community: { ...community, category } },
+        }, {
+            forefront: true,
+        });
     }
 };

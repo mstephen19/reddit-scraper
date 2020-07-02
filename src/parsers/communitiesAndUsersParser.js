@@ -24,6 +24,6 @@ exports.communitiesAndUsersParser = async ({ requestQueue, page, request, maxCom
     communities.splice(maxCommunitiesAndUsers);
 
     for (const url of communities) {
-        await requestQueue.addRequest({ url });
+        await requestQueue.addRequest({ url, userData: request.userData });
     }
 };

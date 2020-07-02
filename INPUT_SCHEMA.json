@@ -34,7 +34,7 @@
             "editor": "select",
             "enum": [
                 "posts",
-                "communities_and_user"
+                "communities_and_users"
             ],
             "enumTitles": [
                 "Posts",
@@ -44,15 +44,7 @@
         "maxPostCount": {
             "title": "Maximum Post Count",
             "type": "integer",
-            "description": "The total maximum number of posts from `Posts`'s page that will be scraped",
-            "editor": "number",
-            "prefill": 100,
-            "default": 100
-        },
-        "maxCommunitiesAndUsers": {
-            "title": "Maximum Communities & Users Count",
-            "type": "integer",
-            "description": "The total maximum number of `Communities & Users`'s pages that will be scraped",
+            "description": "The total maximum number of posts from `Posts`'s page that will be scraped if your search or startUrl is a Post type",
             "editor": "number",
             "prefill": 100,
             "default": 100
@@ -60,11 +52,19 @@
         "maxComments": {
             "title": "Maximum Comments Count",
             "type": "integer",
-            "description": "The maximum number of comments per page that will be scraped",
+            "description": "The maximum number of comments per page that will be scraped when your search is a Post type",
             "editor": "number",
             "prefill": 100,
             "default": 100
         },
+        "maxCommunitiesAndUsers": {
+            "title": "Maximum Communities & Users Count",
+            "type": "integer",
+            "description": "The total maximum number of `Communities & Users`'s pages that will be scraped if your seach or startUrl is a Communites&Users type. Each category inside a community page is counted individually, you should consider this when setting this value.",
+            "editor": "number",
+            "prefill": 100,
+            "default": 100
+        },        
         "extendOutputFunction": {
             "title": "Extended Output Function",
             "type": "string",

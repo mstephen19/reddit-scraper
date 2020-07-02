@@ -17,6 +17,15 @@ exports.getSearchUrl = ({ search, type }) => {
     return `${EnumBaseUrl.SEARCH_URL}?${params.toString()}`;
 };
 
+exports.getSearchType = (url) => {
+    const type = this.getUrlType(url);
+    if ([EnumURLTypes.COMUMUNITIES_AND_USERS, EnumURLTypes.POSTS].includes(type)) {
+        return type;
+    }
+    log.exception('Url search type not supported!');
+    return false;
+};
+
 exports.getUrlType = (url) => {
     let type = null;
 
@@ -93,4 +102,16 @@ exports.fixPostDate = (passedTimeString) => {
     const duration = results[2];
 
     return moment().subtract(duration, num).toISOString();
+};
+
+exports.hasReachedScrapeLimit = ({ searchType, maxPostCount, maxCommunitiesAndUsers, itemCount }) => {
+    if (searchType === EnumURLTypes.POSTS && maxPostCount >= itemCount) {
+        return true;
+    }
+
+    if (searchType === EnumURLTypes.COMUMUNITIES_AND_USERS && maxCommunitiesAndUsers >= itemCount) {
+        return true;
+    }
+
+    return false;
 };
