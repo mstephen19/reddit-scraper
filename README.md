@@ -62,6 +62,9 @@ Post Example:
 ```
 
 Community Example:
+
+This will be replicated for each category inside the comunity to save each category posts in a different object.
+
 ```json
 {
   "title": "Cooking",
@@ -75,6 +78,7 @@ Community Example:
     "CorvusCalvaria",
     "skahunter831"
   ],
+  "category": "hot",
   "posts": [
     {
       "postUrl": "https://www.reddit.com/r/Cooking/comments/hg11f3/homemade_chicken_cheese_masala_pasta/",
@@ -133,6 +137,7 @@ This example will add the title of the page to the final object:
     "CorvusCalvaria",
     "skahunter831"
   ],
+  "category": "new",
   "posts": [
     {
       "postUrl": "https://www.reddit.com/r/Cooking/comments/hg11f3/homemade_chicken_cheese_masala_pasta/",
