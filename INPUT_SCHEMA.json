@@ -44,7 +44,15 @@
         "maxPostCount": {
             "title": "Maximum Post Count",
             "type": "integer",
-            "description": "How many posts per page should be scraped at max",
+            "description": "The total maximum number of posts from `Posts`'s page that will be scraped",
+            "editor": "number",
+            "prefill": 100,
+            "default": 100
+        },
+        "maxCommunitiesAndUsers": {
+            "title": "Maximum Communities & Users Count",
+            "type": "integer",
+            "description": "The total maximum number of `Communities & Users`'s pages that will be scraped",
             "editor": "number",
             "prefill": 100,
             "default": 100
@@ -52,7 +60,7 @@
         "maxComments": {
             "title": "Maximum Comments Count",
             "type": "integer",
-            "description": "How many comments per page should be scraped at max",
+            "description": "The maximum number of comments per page that will be scraped",
             "editor": "number",
             "prefill": 100,
             "default": 100

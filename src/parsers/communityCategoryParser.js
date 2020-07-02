@@ -43,7 +43,7 @@ exports.communityCategoryParser = async ({ request, page, maxPostCount, extendOu
         }, extendOutputFunction);
     }
 
-    community.posts = posts.filter((post) => !!post.title);
+    community.posts = posts.filter((post) => !!post.title).slice(0, maxPostCount);
     Object.assign(community, userResult);
 
     await Apify.pushData(community);

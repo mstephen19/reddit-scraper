@@ -2,10 +2,17 @@
 
 const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
+const { log } = require('../tools');
 
 exports.commentsParser = async ({ page, request, maxComments, extendOutputFunction }) => {
     const postId = request.url.match(/comments\/([^/]+)\/.+/)[1];
-    await page.waitForSelector(`[id=t3_${postId}`);
+
+    try {
+        await page.waitForSelector(`[id=t3_${postId}`);
+    } catch (err) {
+        log.error('Timeout on waitForSelector: \nFile: comentsParser.js:11');
+    }
+
     const data = await page.$eval(`[id=t3_${postId}`, (el) => {
         const numberOfVotes = $(el).find('[id^=vote-arrows] div').html();
         const postedBy = $(el).find('a[href^="/user/"]').html();
@@ -25,7 +32,11 @@ exports.commentsParser = async ({ page, request, maxComments, extendOutputFuncti
     const postUrl = request.url;
     const communityName = postUrl.match(/reddit\.com\/(.*)\/comments.*/)[1];
 
-    await page.click('button._2JBsHFobuapzGwpHQjrDlD.j9NixHqtN2j8SKHcdJ0om._2nelDm85zKKmuD94NequP0');
+    try {
+        await page.click('button._2JBsHFobuapzGwpHQjrDlD.j9NixHqtN2j8SKHcdJ0om._2nelDm85zKKmuD94NequP0');
+    } catch (err) {
+        log.error('Timeout on click: \nFile: comentsParser.js:36');
+    }
 
     let loading = true;
     let previousCommentsLength = -1;
@@ -65,6 +76,8 @@ exports.commentsParser = async ({ page, request, maxComments, extendOutputFuncti
 
         previousCommentsLength = comments.length;
     }
+
+    comments.splice(maxComments);
 
     const post = {
         postUrl,
