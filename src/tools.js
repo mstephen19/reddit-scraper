@@ -77,3 +77,11 @@ exports.gotoFunction = async ({ page, request }) => {
 
     return page.goto(request.url, { timeout: 60000 });
 };
+
+exports.convertStringToNumber = (stringNumber) => {
+    const number = stringNumber
+        .replace('k', '000')
+        .replace('m', '000000')
+        .replace(/[^\d]+/, '');
+    return Number(number);
+};
