@@ -1,3 +1,5 @@
+/* global $ */
+
 const { log } = require('../tools');
 
 exports.communityParser = async ({ requestQueue, request, page }) => {
@@ -5,6 +7,7 @@ exports.communityParser = async ({ requestQueue, request, page }) => {
     const title = await page.$eval('h1', (el) => el.innerText);
     const title2 = await page.$eval('h2', (el) => el.innerText);
     const createdAt = await page.$eval('[id^="IdCard--CakeDay"]', (el) => el.innerText);
+    const members = await page.$eval('[id^=IdCard--Subscribers]', (el) => $(el).closest('div').text().replace('Members', ''));
     const categories = await page.$$eval('div.wBtTDilkW_rtT2k5x3eie a', (elements) => {
         const cats = new Set(elements.map((el) => el.href));
         return Array.from(cats);
@@ -22,6 +25,7 @@ exports.communityParser = async ({ requestQueue, request, page }) => {
         title,
         title2,
         createdAt,
+        members,
         moderators,
     };
 
