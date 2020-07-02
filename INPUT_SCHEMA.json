@@ -41,16 +41,6 @@
             "description": "Here you can provide a search query which will be used to search Reddit's topics.",
             "editor": "stringList"
         },
-        "maxItems": {
-            "title": "Search results limit",
-            "type": "integer",
-            "description": "How many search results should be processed",
-            "editor": "number",
-            "prefill": 20,
-            "default": 20,
-            "sectionCaption": "Configuration",
-            "sectionDescription": "This fields will help you configure the scraped data"
-        },
         "maxPostCount": {
             "title": "Maximum Post Count",
             "type": "integer",

@@ -6,7 +6,7 @@ const { EnumURLTypes } = require('./constants');
 Apify.main(async () => {
     const input = await Apify.getInput();
 
-    const { proxy, startUrls, maxItems, searches, extendOutputFunction, maxPostCount, maxComments, useBuiltInSearch, type } = input;
+    const { proxy, startUrls, searches, extendOutputFunction, maxPostCount, maxComments, useBuiltInSearch, type } = input;
 
     if (!startUrls && !useBuiltInSearch) {
         throw new Error('startUrls or built-in search must be used!');
@@ -37,7 +37,7 @@ Apify.main(async () => {
             const dataset = await Apify.openDataset();
             const { itemCount } = await dataset.getInfo();
 
-            if (itemCount >= maxItems) {
+            if (itemCount >= maxPostCount) {
                 log.info('Actor reached the max items limit. Crawler is going to halt...');
                 log.info('Crawler Finished.');
                 process.exit();
