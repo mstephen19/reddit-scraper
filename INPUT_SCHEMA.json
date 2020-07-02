@@ -21,6 +21,12 @@
             "sectionCaption": "Search",
             "sectionDescription": "This fields will be used on the search"
         },
+        "searches": {
+            "title": "Search Term",
+            "type": "array",
+            "description": "Here you can provide a search query which will be used to search Reddit's topics.",
+            "editor": "stringList"
+        },
         "type": {
             "title": "Search type",
             "type": "string",
@@ -34,12 +40,6 @@
                 "Posts",
                 "Communities and users"
             ]
-        },
-        "searches": {
-            "title": "Search",
-            "type": "array",
-            "description": "Here you can provide a search query which will be used to search Reddit's topics.",
-            "editor": "stringList"
         },
         "maxPostCount": {
             "title": "Maximum Post Count",

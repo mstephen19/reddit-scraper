@@ -29,8 +29,7 @@ exports.postsParser = async ({ requestQueue, page, request, maxPostCount }) => {
 
     posts.splice(maxPostCount);
 
-    await posts.reduce(async (previous, url) => {
-        await previous;
+    for (const url of posts) {
         await requestQueue.addRequest({ url });
-    }, Promise.resolve());
+    }
 };
