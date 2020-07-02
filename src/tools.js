@@ -1,4 +1,5 @@
 const Apify = require('apify');
+const moment = require('moment');
 const { EnumBaseUrl, EnumURLTypes } = require('./constants');
 
 const { log } = Apify.utils;
@@ -84,4 +85,12 @@ exports.convertStringToNumber = (stringNumber) => {
         .replace('m', '000000')
         .replace(/[^\d]+/, '');
     return Number(number);
+};
+
+exports.fixPostDate = (passedTimeString) => {
+    const results = passedTimeString.match(/^(\d+)\s(\w+)\sago$/);
+    const num = results[1];
+    const duration = results[2];
+
+    return moment().subtract(duration, num).toISOString();
 };
