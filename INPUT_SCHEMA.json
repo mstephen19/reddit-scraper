@@ -60,7 +60,7 @@
         "maxComments": {
             "title": "Maximum Comments Count",
             "type": "integer",
-            "description": "The maximum number of comments that will be scraped for each Comments Page",
+            "description": "The maximum number of comments that will be scraped for each Comments Page.",
             "editor": "number",
             "prefill": 50,
             "default": 50

@@ -13,10 +13,12 @@ Reddit Scraper is an [Apify actor](https://apify.com/actors) for extracting data
 | ----- | ---- | ----------- | -------------|
 | startUrls | array | List of [Request](https://sdk.apify.com/docs/api/request#docsNav) objects that will be deeply crawled.  |  |
 | useBuiltInSearch | boolean | When set to true (checked), the startUrls will be ignored and the actor will perform a search based on the fields bellow. | false |
-| type | enum | Select the type of search tha will be performed. "Posts" or "Communities and users". | "Posts" |
 | searhes | array | An array containing keywords that will be used in the Reddit's search engine. Each item on the array will perform a diferent search. |  |
-| maxPostCount | number | How many posts per page should be scraped at max. The real value can be greater since the data is loaded in batches. | 100 |
-| maxComments | number | How many comments per page should be scraped at max. The real value can be greater since the data is loaded in batches. | 100 |
+| type | enum | Select the type of search tha will be performed. "Posts" or "Communities and users". | "Posts" |
+| maxItems | number | The maximum number of items that will be saved in the dataset. | 50 |
+| maxPostCount | number | The maximum number of posts that will be scraped for each Posts Page or Communities&Users URL | 50 |
+| maxComments | number | The maximum number of comments that will be scraped for each Comments Page. | 50 |
+| maxCommunitiesAndUsers | number | The maximum number of "Communities & Users"'s pages that will be scraped if your seach or startUrl is a Communites&Users type. | 50 |
 | extendOutputFunction | string | A Javascript function passed as plain text that can return custom information. More on [Extend output function](#extend-output-function). | |
 | proxyConfiguration | object | Proxy settings of the run. | `{"useApifyProxy": true }`|
 
