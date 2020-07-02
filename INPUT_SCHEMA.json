@@ -41,29 +41,37 @@
                 "Communities and users"
             ]
         },
+        "maxItems": {
+            "title": "Maximum Number of Items",
+            "type": "integer",
+            "description": "The maximum number of items that will be saved in the dataset.",
+            "editor": "number",
+            "prefill": 50,
+            "default": 50
+        },
         "maxPostCount": {
             "title": "Maximum Post Count",
             "type": "integer",
-            "description": "The total maximum number of posts from `Posts`'s page that will be scraped if your search or startUrl is a Post type",
+            "description": "The maximum number of posts that will be scraped for each Posts Page or Communities&Users URL",
             "editor": "number",
-            "prefill": 100,
-            "default": 100
+            "prefill": 50,
+            "default": 50
         },
         "maxComments": {
             "title": "Maximum Comments Count",
             "type": "integer",
-            "description": "The maximum number of comments per page that will be scraped when your search is a Post type",
+            "description": "The maximum number of comments that will be scraped for each Comments Page",
             "editor": "number",
-            "prefill": 100,
-            "default": 100
+            "prefill": 50,
+            "default": 50
         },
         "maxCommunitiesAndUsers": {
             "title": "Maximum Communities & Users Count",
             "type": "integer",
-            "description": "The total maximum number of `Communities & Users`'s pages that will be scraped if your seach or startUrl is a Communites&Users type. Each category inside a community page is counted individually, you should consider this when setting this value.",
+            "description": "The maximum number of `Communities & Users`'s pages that will be scraped if your seach or startUrl is a Communites&Users type.",
             "editor": "number",
-            "prefill": 100,
-            "default": 100
+            "prefill": 50,
+            "default": 50
         },        
         "extendOutputFunction": {
             "title": "Extended Output Function",

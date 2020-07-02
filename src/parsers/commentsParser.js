@@ -2,7 +2,7 @@
 
 const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
-const { log, convertStringToNumber, fixPostDate } = require('../tools');
+const { log, convertStringToNumber, fixPostDate, hasReachedScrapeLimit } = require('../tools');
 
 exports.commentsParser = async ({ page, request, maxComments, extendOutputFunction }) => {
     const postId = request.url.match(/comments\/([^/]+)\/.+/)[1];
@@ -101,5 +101,7 @@ exports.commentsParser = async ({ page, request, maxComments, extendOutputFuncti
 
     Object.assign(post, userResult);
 
-    await Apify.pushData(post);
+    if (!(await hasReachedScrapeLimit())) {
+        await Apify.pushData(post);
+    }
 };

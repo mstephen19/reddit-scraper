@@ -3,6 +3,14 @@
 const { log, convertStringToNumber } = require('../tools');
 
 exports.communityParser = async ({ requestQueue, request, page }) => {
+    const privateCommunity = await page.$$eval('h3', (elements) => {
+        return Array.from(elements).filter((el) => el.innerText.includes('must be invited'));
+    });
+
+    if (privateCommunity && privateCommunity.length) {
+        log.exception('Private community');
+    }
+
     await page.waitForSelector('div.wBtTDilkW_rtT2k5x3eie');
     const title = await page.$eval('h1', (el) => el.innerText);
     const title2 = await page.$eval('h2', (el) => el.innerText);

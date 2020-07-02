@@ -18,6 +18,7 @@ Apify.main(async () => {
         startUrls,
         searches,
         extendOutputFunction,
+        maxItems,
         maxPostCount,
         maxComments,
         maxCommunitiesAndUsers,
@@ -56,14 +57,11 @@ Apify.main(async () => {
 
         gotoFunction,
 
-        handlePageFunction: async (context) => {
-            const dataset = await Apify.openDataset();
-            const { itemCount } = await dataset.getInfo();
+        handlePageFunction: async (context) => {            
             const { page, request } = context;
-            const { searchType } = request.userData;
             const urlType = getUrlType(request.url);
 
-            if (hasReachedScrapeLimit({ searchType, maxPostCount, maxCommunitiesAndUsers, itemCount })) {
+            if (await hasReachedScrapeLimit()) {
                 log.info('Actor reached the max items limit. Crawler is going to halt...');
                 log.info('Crawler Finished.');
                 process.exit();

@@ -101,17 +101,12 @@ exports.fixPostDate = (passedTimeString) => {
     const num = results[1];
     const duration = results[2];
 
-    return moment().subtract(duration, num).toISOString();
+    return moment().subtract(num, duration).toISOString();
 };
 
-exports.hasReachedScrapeLimit = ({ searchType, maxPostCount, maxCommunitiesAndUsers, itemCount }) => {
-    if (searchType === EnumURLTypes.POSTS && maxPostCount >= itemCount) {
-        return true;
-    }
-
-    if (searchType === EnumURLTypes.COMUMUNITIES_AND_USERS && maxCommunitiesAndUsers >= itemCount) {
-        return true;
-    }
-
-    return false;
+exports.hasReachedScrapeLimit = async () => {
+    const dataset = await Apify.openDataset();
+    const { itemCount } = await dataset.getInfo();
+    const { maxItems } = await Apify.getInput();
+    return itemCount >= maxItems;
 };
