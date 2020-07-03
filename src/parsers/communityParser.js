@@ -3,15 +3,19 @@
 const { log, convertStringToNumber } = require('../tools');
 
 exports.communityParser = async ({ requestQueue, request, page }) => {
-    const privateCommunity = await page.$$eval('h3', (elements) => {
-        return Array.from(elements).filter((el) => el.innerText.includes('must be invited'));
-    });
+    try {
+        await page.waitForSelector('div.wBtTDilkW_rtT2k5x3eie');
+    } catch (err) {
+        const privateCommunity = await page.$eval('h3', (el) => el.innerText);
 
-    if (privateCommunity && privateCommunity.length) {
-        log.exception('Private community');
+        if (privateCommunity && privateCommunity.includes('must be invited')) {
+            log.exception(`Private community: ${request.url}`);
+            return;
+        }
+
+        throw err;
     }
 
-    await page.waitForSelector('div.wBtTDilkW_rtT2k5x3eie');
     const title = await page.$eval('h1', (el) => el.innerText);
     const title2 = await page.$eval('h2', (el) => el.innerText);
     const createdAt = await page.$eval('[id^="IdCard--CakeDay"]', (el) => el.innerText);
