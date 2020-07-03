@@ -2,7 +2,7 @@
 
 const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
-const { fixPostDate, convertStringToNumber, hasReachedScrapeLimit } = require('../tools');
+const { convertRelativeDate, convertStringToNumber, hasReachedScrapeLimit } = require('../tools');
 
 exports.communityCategoryParser = async ({ request, page, maxPostCount, extendOutputFunction }) => {
     const { community } = request.userData;
@@ -49,7 +49,7 @@ exports.communityCategoryParser = async ({ request, page, maxPostCount, extendOu
         .map((post) => ({
             ...post,
             numberOfVotes: convertStringToNumber(post.numberOfVotes),
-            postedDate: fixPostDate(post.postedDate),
+            postedDate: convertRelativeDate(post.postedDate),
         }))
         .slice(0, maxPostCount);
     Object.assign(community, userResult);

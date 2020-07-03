@@ -96,7 +96,7 @@ exports.convertStringToNumber = (stringNumber) => {
     return Number(number);
 };
 
-exports.fixPostDate = (passedTimeString) => {
+exports.convertRelativeDate = (passedTimeString) => {
     const results = passedTimeString.match(/^(\d+)\s(\w+)\sago$/);
     const num = results[1];
     const duration = results[2];

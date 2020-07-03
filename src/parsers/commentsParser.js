@@ -2,7 +2,7 @@
 
 const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
-const { log, convertStringToNumber, fixPostDate, hasReachedScrapeLimit } = require('../tools');
+const { log, convertStringToNumber, convertRelativeDate, hasReachedScrapeLimit } = require('../tools');
 
 exports.commentsParser = async ({ page, request, maxComments, extendOutputFunction }) => {
     const postId = request.url.match(/comments\/([^/]+)\/.+/)[1];
@@ -82,12 +82,10 @@ exports.commentsParser = async ({ page, request, maxComments, extendOutputFuncti
     const post = {
         postUrl,
         communityName,
-        ...data.map((comment) => ({
-            ...comment,
-            numberOfVotes: convertStringToNumber(comment.numberOfVotes),
-            postedDate: fixPostDate(post.postedDate),
-        })),
-        comments,
+        ...data,
+        numberOfVotes: convertStringToNumber(data.numberOfVotes),
+        postedDate: convertRelativeDate(data.postedDate),
+        comments: comments.map((comment) => ({ ...comment, commentDate: convertRelativeDate(comment.commentDate) })),
     };
 
     let userResult = {};
