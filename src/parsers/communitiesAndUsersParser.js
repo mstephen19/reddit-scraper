@@ -1,5 +1,6 @@
 const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
+const { splitUrl } = require('../tools');
 
 exports.communitiesAndUsersParser = async ({ requestQueue, page, request, maxCommunitiesAndUsers }) => {
     let loading = true;
@@ -24,6 +25,6 @@ exports.communitiesAndUsersParser = async ({ requestQueue, page, request, maxCom
     communities.splice(maxCommunitiesAndUsers);
 
     for (const url of communities) {
-        await requestQueue.addRequest({ url, userData: request.userData });
+        await requestQueue.addRequest({ url: splitUrl(url), userData: request.userData });
     }
 };

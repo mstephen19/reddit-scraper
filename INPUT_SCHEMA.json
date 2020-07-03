@@ -44,7 +44,7 @@
         "maxItems": {
             "title": "Maximum Number of Items",
             "type": "integer",
-            "description": "The maximum number of items that will be saved in the dataset.",
+            "description": "The maximum number of items that will be saved in the dataset. If you are scrapping for Communities&Users, remeber to consider that each category inside a community is saved as a separeted item.",
             "editor": "number",
             "prefill": 50,
             "default": 50

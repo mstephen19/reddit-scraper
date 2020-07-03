@@ -2,6 +2,7 @@
 
 const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
+const { splitUrl } = require('../tools');
 
 exports.postsParser = async ({ requestQueue, page, request, maxPostCount }) => {
     let loading = true;
@@ -30,6 +31,6 @@ exports.postsParser = async ({ requestQueue, page, request, maxPostCount }) => {
     posts.splice(maxPostCount);
 
     for (const url of posts) {
-        await requestQueue.addRequest({ url, userData: request.userData });
+        await requestQueue.addRequest({ url: splitUrl(url), userData: request.userData });
     }
 };

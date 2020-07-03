@@ -15,7 +15,7 @@ Reddit Scraper is an [Apify actor](https://apify.com/actors) for extracting data
 | useBuiltInSearch | boolean | When set to true (checked), the startUrls will be ignored and the actor will perform a search based on the fields bellow. | false |
 | searhes | array | An array containing keywords that will be used in the Reddit's search engine. Each item on the array will perform a diferent search. |  |
 | type | enum | Select the type of search tha will be performed. "Posts" or "Communities and users". | "Posts" |
-| maxItems | number | The maximum number of items that will be saved in the dataset. | 50 |
+| maxItems | number | The maximum number of items that will be saved in the dataset. If you are scrapping for Communities&Users, remeber to consider that each category inside a community is saved as a separeted item. | 50 |
 | maxPostCount | number | The maximum number of posts that will be scraped for each Posts Page or Communities&Users URL | 50 |
 | maxComments | number | The maximum number of comments that will be scraped for each Comments Page. | 50 |
 | maxCommunitiesAndUsers | number | The maximum number of "Communities & Users"'s pages that will be scraped if your seach or startUrl is a Communites&Users type. | 50 |
@@ -69,37 +69,35 @@ This will be replicated for each category inside the comunity to save each categ
 
 ```json
 {
-  "title": "Cooking",
-  "title2": "r/Cooking",
-  "createdAt": "2008-01-25T00:00:00.000Z",
+  "title": "Pizza",
+  "title2": "r/Pizza",
+  "createdAt": "Created Aug 26, 2008",
+  "members": 266000,
   "moderators": [
-    "DrJulianBashir",
-    "zem",
-    "siouxsie_siouxv2",
-    "erikbomb",
-    "CorvusCalvaria",
-    "skahunter831"
+    "6745408",
+    "AutoModerator",
+    "BotTerminator"
   ],
-  "category": "hot",
+  "category": "top",
   "posts": [
     {
-      "postUrl": "https://www.reddit.com/r/Cooking/comments/hg11f3/homemade_chicken_cheese_masala_pasta/",
-      "numberOfVotes": "•",
-      "communityName": "r/Cooking",
-      "postedBy": "u/Siyaz19",
-      "postedDate": "26 minutes ago",
-      "title": "homemade chicken cheese masala pasta"
+      "postUrl": "https://www.reddit.com/r/Pizza/comments/hjtnw4/margherita_life/",
+      "numberOfVotes": 10000,
+      "communityName": "r/Pizza",
+      "postedBy": "u/4000xxl",
+      "postedDate": "2020-07-02T09:21:51.445Z",
+      "title": "Margherita = life"
     },
     {
-      "postUrl": "https://www.reddit.com/r/Cooking/comments/hg0ndb/my_hot_dog/",
-      "numberOfVotes": "•",
-      "communityName": "r/Cooking",
-      "postedBy": "u/iScReAm612",
-      "postedDate": "55 minutes ago",
-      "title": "My Hot Dog"
-    },
+      "postUrl": "https://www.reddit.com/user/popdusteats/comments/hfam2q/hellofreshs_newest_offer_is_giving_you_80_off/",
+      "numberOfVotes": 3,
+      "communityName": "user/popdusteats",
+      "postedBy": "u/popdusteats",
+      "postedDate": "2020-06-25T00:21:51.448Z",
+      "title": "HelloFresh's newest offer is giving you $80 OFF including FREE Shipping! HelloFresh helps you add variety to your daily meals. If you're looking for easy to make meals at an affordable price, click here to learn more."
+    }
   ]
-},
+}
 ```
 
 ### Compute units consumption
@@ -128,36 +126,34 @@ async () => {
 This example will add the title of the page to the final object:
 ```json
 {
-  "title": "Cooking",
-  "title2": "r/Cooking",
-  "createdAt": "2008-01-25T00:00:00.000Z",
+  "title": "Pizza",
+  "title2": "r/Pizza",
+  "createdAt": "Created Aug 26, 2008",
+  "members": 266000,
   "moderators": [
-    "DrJulianBashir",
-    "zem",
-    "siouxsie_siouxv2",
-    "erikbomb",
-    "CorvusCalvaria",
-    "skahunter831"
+    "6745408",
+    "AutoModerator",
+    "BotTerminator"
   ],
-  "category": "new",
+  "category": "top",
   "posts": [
     {
-      "postUrl": "https://www.reddit.com/r/Cooking/comments/hg11f3/homemade_chicken_cheese_masala_pasta/",
-      "numberOfVotes": "•",
-      "communityName": "r/Cooking",
-      "postedBy": "u/Siyaz19",
-      "postedDate": "26 minutes ago",
-      "title": "homemade chicken cheese masala pasta"
+      "postUrl": "https://www.reddit.com/r/Pizza/comments/hjtnw4/margherita_life/",
+      "numberOfVotes": 10000,
+      "communityName": "r/Pizza",
+      "postedBy": "u/4000xxl",
+      "postedDate": "2020-07-02T09:21:51.445Z",
+      "title": "Margherita = life"
     },
     {
-      "postUrl": "https://www.reddit.com/r/Cooking/comments/hg0ndb/my_hot_dog/",
-      "numberOfVotes": "•",
-      "communityName": "r/Cooking",
-      "postedBy": "u/iScReAm612",
-      "postedDate": "55 minutes ago",
-      "title": "My Hot Dog"
-    },
+      "postUrl": "https://www.reddit.com/user/popdusteats/comments/hfam2q/hellofreshs_newest_offer_is_giving_you_80_off/",
+      "numberOfVotes": 3,
+      "communityName": "user/popdusteats",
+      "postedBy": "u/popdusteats",
+      "postedDate": "2020-06-25T00:21:51.448Z",
+      "title": "HelloFresh's newest offer is giving you $80 OFF including FREE Shipping! HelloFresh helps you add variety to your daily meals. If you're looking for easy to make meals at an affordable price, click here to learn more."
+    }
   ],
   "title": "homemade chicken cheese masala pasta" 
-},
+}
 ```
