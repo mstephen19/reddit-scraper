@@ -104,6 +104,6 @@ exports.convertRelativeDate = (passedTimeString) => {
     return moment().subtract(num, duration).toISOString();
 };
 
-exports.hasReachedScrapeLimit = async ({ maxItems, itemCount }) => {
+exports.hasReachedScrapeLimit = ({ maxItems, itemCount }) => {
     return itemCount >= maxItems;
 };

@@ -99,7 +99,7 @@ exports.commentsParser = async ({ page, request, maxComments, extendOutputFuncti
 
     Object.assign(post, userResult);
 
-    if (!(await hasReachedScrapeLimit({ itemCount, maxItems }))) {
+    if (!hasReachedScrapeLimit({ itemCount, maxItems })) {
         await Apify.pushData(post);
         return itemCount + 1;
     }

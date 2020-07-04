@@ -54,7 +54,7 @@ exports.communityCategoryParser = async ({ request, page, maxPostCount, extendOu
         .slice(0, maxPostCount);
     Object.assign(community, userResult);
 
-    if (!(await hasReachedScrapeLimit({ maxItems, itemCount }))) {
+    if (!hasReachedScrapeLimit({ maxItems, itemCount })) {
         await Apify.pushData(community);
         return itemCount + 1;
     }

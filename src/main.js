@@ -64,7 +64,7 @@ Apify.main(async () => {
             const { page, request } = context;
             const urlType = getUrlType(request.url);
 
-            if (await hasReachedScrapeLimit()) {
+            if (hasReachedScrapeLimit()) {
                 log.info('Actor reached the max items limit. Crawler is going to halt...');
                 log.info('Crawler Finished.');
                 process.exit();
