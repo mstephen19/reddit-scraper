@@ -13,6 +13,9 @@ const {
 Apify.main(async () => {
     const input = await Apify.getInput();
 
+    const dataset = await Apify.openDataset();
+    let { itemCount } = await dataset.getInfo();
+
     const {
         proxy,
         startUrls,
@@ -57,7 +60,7 @@ Apify.main(async () => {
 
         gotoFunction,
 
-        handlePageFunction: async (context) => {            
+        handlePageFunction: async (context) => {
             const { page, request } = context;
             const urlType = getUrlType(request.url);
 
@@ -78,11 +81,15 @@ Apify.main(async () => {
                 case EnumURLTypes.COMUMUNITIES_AND_USERS:
                     return Parsers.communitiesAndUsersParser({ requestQueue, ...context, maxCommunitiesAndUsers });
                 case EnumURLTypes.COMMENTS:
-                    return Parsers.commentsParser({ requestQueue, ...context, maxComments, extendOutputFunction });
+                    itemCount = await Parsers.commentsParser({ requestQueue, ...context, maxComments, extendOutputFunction, maxItems, itemCount });
+                    return;
                 case EnumURLTypes.COMMUNITY:
                     return Parsers.communityParser({ requestQueue, ...context });
                 case EnumURLTypes.COMMUNITY_CATEGORY:
-                    return Parsers.communityCategoryParser({ requestQueue, ...context, maxPostCount, extendOutputFunction });
+                    itemCount = await Parsers.communityCategoryParser({
+                        requestQueue, ...context, maxPostCount, extendOutputFunction, itemCount, maxItems,
+                    });
+                    return;
                 default:
                     log.warning('Url does not match any parser');
             }

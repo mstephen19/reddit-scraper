@@ -4,7 +4,7 @@ const Apify = require('apify');
 const { SCROLL_TIMEOUT } = require('../constants');
 const { log, convertStringToNumber, convertRelativeDate, hasReachedScrapeLimit } = require('../tools');
 
-exports.commentsParser = async ({ page, request, maxComments, extendOutputFunction }) => {
+exports.commentsParser = async ({ page, request, maxComments, extendOutputFunction, itemCount, maxItems }) => {
     const postId = request.url.match(/comments\/([^/]+)\/.+/)[1];
 
     try {
@@ -52,7 +52,7 @@ exports.commentsParser = async ({ page, request, maxComments, extendOutputFuncti
         comments = await page.$$eval('[id^=t1]', (elements) => {
             const temp = [];
             elements.forEach((el) => {
-                const span = Array.from($(el).find('span')).find((span) => $(span).text().includes('points'));
+                const span = Array.from($(el).find('span')).find((sp) => $(sp).text().includes('points'));
                 const points = span ? span.innerText.match(/(\d+).+/)[1] : null;
                 const id = $(el).attr('id');
                 const commentUrl = `${this.location.href}${id}`;
@@ -99,7 +99,9 @@ exports.commentsParser = async ({ page, request, maxComments, extendOutputFuncti
 
     Object.assign(post, userResult);
 
-    if (!(await hasReachedScrapeLimit())) {
+    if (!(await hasReachedScrapeLimit({ itemCount, maxItems }))) {
         await Apify.pushData(post);
+        return itemCount + 1;
     }
+    return itemCount;
 };

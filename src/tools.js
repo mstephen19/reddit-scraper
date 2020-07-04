@@ -104,9 +104,6 @@ exports.convertRelativeDate = (passedTimeString) => {
     return moment().subtract(num, duration).toISOString();
 };
 
-exports.hasReachedScrapeLimit = async () => {
-    const dataset = await Apify.openDataset();
-    const { itemCount } = await dataset.getInfo();
-    const { maxItems } = await Apify.getInput();
+exports.hasReachedScrapeLimit = async ({ maxItems, itemCount }) => {
     return itemCount >= maxItems;
 };
