@@ -114,7 +114,8 @@ This will be replicated for each category inside the comunity to save each categ
 ```
 
 ### Compute units consumption
-Processing ...
+
+The CU consumption is expected to be aproximatly 1.4 per 100 requests
 
 ### Extend output function
 
