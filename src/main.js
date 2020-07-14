@@ -48,13 +48,21 @@ Apify.main(async () => {
         }
     }
 
+    let proxyConfiguration = null;
+
+    if (proxy.useApifyProxy) {
+        proxyConfiguration = await Apify.createProxyConfiguration({
+            groups: proxy.apifyProxyGroups,
+        });
+    }
+
     const crawler = new Apify.PuppeteerCrawler({
         requestList,
         requestQueue,
         useSessionPool: true,
         persistCookiesPerSession: true,
+        proxyConfiguration,
         launchPuppeteerOptions: {
-            ...proxy,
             stealth: true,
         },
 
