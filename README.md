@@ -15,7 +15,7 @@ Reddit Scraper is an [Apify actor](https://apify.com/actors) for extracting data
 | useBuiltInSearch | boolean | When set to true (checked), the startUrls will be ignored and the actor will perform a search based on the fields bellow. | false |
 | searches | array | An array containing keywords that will be used in the Reddit's search engine. Each item on the array will perform a diferent search. |  |
 | type | enum | Select the type of search tha will be performed. "Posts" or "Communities and users". | "Posts" |
-| maxItems | number | The maximum number of items that will be saved in the dataset. If you are scrapping for Communities&Users, remeber to consider that each category inside a community is saved as a separeted item. [More details here.](#limiting-results-with-maxitems) | 50 |
+| maxItems | number | The maximum number of items that will be saved in the dataset. If you are scrapping for Communities&Users, remember to consider that each category inside a community is saved as a separeted item. [More details here.](#limiting-results-with-maxitems) | 50 |
 | maxPostCount | number | The maximum number of posts that will be scraped for each Posts Page or Communities&Users URL | 50 |
 | maxComments | number | The maximum number of comments that will be scraped for each Comments Page. | 50 |
 | maxCommunitiesAndUsers | number | The maximum number of "Communities & Users"'s pages that will be scraped if your seach or startUrl is a Communites&Users type. | 50 |
@@ -26,7 +26,7 @@ Reddit Scraper is an [Apify actor](https://apify.com/actors) for extracting data
 
 When searching for Communities&Users, each community has different categories inside them (ie: New, Hot, Rising, etc..). Each of those are saved as a separated item in the dataset so you have to account for them when setting the `maxItems` input.  As an example, if you set `maxCommunitiesAndUsers` to 10 and each community has 4 categories, you will have to set `maxItems` to at least 40 (10 x 4) to get all the categories for each community in the resulted dataset.
 
-When searching for Posts, you can set maxItems to the same number as maxPostCount.
+When searching for Posts, you can set maxItems to the same number as maxPostCount since each post is saved as an item in the dataset. If the maxItems is less than maxPostCount, the number of posts will be equal the maxItems.
 
 ### Output
 
