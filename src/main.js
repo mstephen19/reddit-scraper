@@ -72,7 +72,7 @@ Apify.main(async () => {
             const { page, request } = context;
             const urlType = getUrlType(request.url);
 
-            if (hasReachedScrapeLimit()) {
+            if (hasReachedScrapeLimit({ maxItems, itemCount })) {
                 log.info('Actor reached the max items limit. Crawler is going to halt...');
                 log.info('Crawler Finished.');
                 process.exit();
@@ -87,7 +87,7 @@ Apify.main(async () => {
                 case EnumURLTypes.POSTS:
                     return Parsers.postsParser({ requestQueue, ...context, maxPostCount });
                 case EnumURLTypes.COMUMUNITIES_AND_USERS:
-                    return Parsers.communitiesAndUsersParser({ requestQueue, ...context, maxCommunitiesAndUsers });
+                    return Parsers.communitiesAndUsersParser({ requestQueue, ...context, maxCommunitiesAndUsers, maxItems });
                 case EnumURLTypes.COMMENTS:
                     itemCount = await Parsers.commentsParser({ requestQueue, ...context, maxComments, extendOutputFunction, maxItems, itemCount });
                     return;
