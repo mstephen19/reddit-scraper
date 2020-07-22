@@ -61,28 +61,18 @@ exports.getUrlType = (url) => {
 exports.splitUrl = (url) => url.split('?')[0];
 
 exports.gotoFunction = async ({ page, request }) => {
-    await page.setRequestInterception(true);
-
-    page.on('request', (req) => {
-        const url = req.url();
-        const resourceType = req.resourceType();
-        const ignoredTypes = [
-            'image',
-            'font',
-        ];
-
-        const ignored = [
+    await Apify.utils.puppeteer.blockRequests(page, {
+        urlPatterns: [
+            '.jpg',
+            '.jpeg',
+            '.png',
+            '.svg',
+            '.gif',
+            '.woff',
+            '.pdf',
+            '.zip',
             'doubleclicks',
-        ];
-
-        let abort = ignoredTypes.includes(resourceType);
-        if (!abort) abort = ignored.some((item) => url.includes(item));
-
-        if (abort) {
-            req.abort();
-        } else {
-            req.continue();
-        }
+        ],
     });
 
     return page.goto(request.url, { timeout: 60000 });
@@ -97,11 +87,14 @@ exports.convertStringToNumber = (stringNumber) => {
 };
 
 exports.convertRelativeDate = (passedTimeString) => {
-    const results = passedTimeString.match(/^(\d+)\s(\w+)\sago$/);
-    const num = results[1];
-    const duration = results[2];
-
-    return moment().subtract(num, duration).toISOString();
+    const results = passedTimeString.match(/^(\d+)\s(\w+)\sago.*$/);
+    if (results) {
+        const num = results[1];
+        const duration = results[2];
+        return moment().subtract(num, duration).toISOString();
+    }
+    log.error(`Error converting relative date/time: ${passedTimeString}`);
+    return passedTimeString;
 };
 
 exports.hasReachedScrapeLimit = ({ maxItems, itemCount }) => {

@@ -21,7 +21,7 @@ exports.communityCategoryParser = async ({ request, page, maxPostCount, extendOu
             const numberOfVotes = $(el).find('[id^=vote-arrows] div').html();
             const postedBy = $(el).find('a[href^="/user/"]').html();
             const title = $(el).find('h3').html();
-            const postedDate = $(el).find('a[data-click-id=timestamp]').html();
+            const postedDate = $(el).find('a[data-click-id=timestamp]').text();
             const postUrl = $(el).find('a[data-click-id=timestamp]').attr('href');
             const communityName = postUrl ? postUrl.match(/reddit\.com\/(.*)\/comments.*/)[1] : null;
 
