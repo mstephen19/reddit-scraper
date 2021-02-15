@@ -5,11 +5,11 @@ const {
   log,
   getUrlType,
   getSearchUrl,
-  gotoFunction,
   getSearchType,
   hasReachedScrapeLimit,
   validateInput,
   enableDebugMode,
+  blockUnusedRequests,
 } = require("./tools");
 const { createProxyWithValidation } = require("./proxy-validations");
 
@@ -65,13 +65,19 @@ Apify.main(async () => {
     });
   }
 
+  const preNavigationHooks = [
+    async (crawlingContext) => {
+      await blockUnusedRequests(crawlingContext.page);
+    },
+  ];
+
   const crawler = new Apify.PuppeteerCrawler({
     requestList,
     requestQueue,
     useSessionPool: true,
     persistCookiesPerSession: true,
     proxyConfiguration,
-    gotoFunction,
+    preNavigationHooks,
 
     handlePageFunction: async (context) => {
       const { page, request } = context;
@@ -97,7 +103,7 @@ Apify.main(async () => {
             ...context,
             maxPostCount,
           });
-        case EnumURLTypes.COMUMUNITIES_AND_USERS:
+        case EnumURLTypes.COMMUNITIES_AND_USERS:
           return Parsers.communitiesAndUsersParser({
             requestQueue,
             ...context,
