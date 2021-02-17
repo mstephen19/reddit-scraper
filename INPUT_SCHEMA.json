@@ -42,7 +42,7 @@
             ]
         },
         "maxItems": {
-            "title": "Maximum Number of Items",
+            "title": "Limit of Items to be saved",
             "type": "integer",
             "description": "The maximum number of items that will be saved in the dataset. If you are scrapping for Communities&Users, remember to consider that each category inside a community is saved as a separeted item.",
             "editor": "number",
@@ -50,7 +50,7 @@
             "default": 50
         },
         "maxPostCount": {
-            "title": "Maximum Post Count",
+            "title": "Limit of posts scraped inside a single page",
             "type": "integer",
             "description": "The maximum number of posts that will be scraped for each Posts Page or Communities&Users URL",
             "editor": "number",
@@ -58,7 +58,7 @@
             "default": 50
         },
         "maxComments": {
-            "title": "Maximum Comments Count",
+            "title": "Limit of comments scraped inside a single page",
             "type": "integer",
             "description": "The maximum number of comments that will be scraped for each Comments Page.",
             "editor": "number",
@@ -66,9 +66,9 @@
             "default": 50
         },
         "maxCommunitiesAndUsers": {
-            "title": "Maximum Communities & Users Count",
+            "title": "Limit of `Communities & Users`'s pages scraped",
             "type": "integer",
-            "description": "The maximum number of `Communities & Users`'s pages that will be scraped if your seach or startUrl is a Communites&Users type.",
+            "description": "The maximum number of `Communities & Users`'s pages that will be scraped if your search or startUrl is a Communities&Users type.",
             "editor": "number",
             "prefill": 50,
             "default": 50
