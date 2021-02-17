@@ -1,4 +1,3 @@
-const { PuppeteerCrawler } = require("apify");
 const Apify = require("apify");
 const sub = require("date-fns/sub");
 const { EnumBaseUrl, EnumURLTypes } = require("./constants");
