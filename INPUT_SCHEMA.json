@@ -14,18 +14,18 @@
             "uniqueItems": true
         },
         "useBuiltInSearch": {
-            "title": "Use built-in search and ignore startUrls",
+            "title": "Use search fields bellow and ignore Start URLs",
             "type": "boolean",
             "description": "Use the fields bellow to perform a search and scrape the result",
-            "editor": "checkbox",
-            "sectionCaption": "Search",
-            "sectionDescription": "This fields will be used on the search"
+            "editor": "checkbox"
         },
         "searches": {
             "title": "Search Term",
             "type": "array",
             "description": "Here you can provide a search query which will be used to search Reddit`s topics.",
-            "editor": "stringList"
+            "editor": "stringList",
+            "sectionCaption": "Search",
+            "sectionDescription": "This fields will be used on the search"
         },
         "type": {
             "title": "Search type",
@@ -42,12 +42,14 @@
             ]
         },
         "maxItems": {
-            "title": "Limit of Items to be saved",
+            "title": "Maximum number of items to be saved",
             "type": "integer",
             "description": "The maximum number of items that will be saved in the dataset. If you are scrapping for Communities&Users, remember to consider that each category inside a community is saved as a separeted item.",
             "editor": "number",
             "prefill": 50,
-            "default": 50
+            "default": 50,
+            "sectionCaption": "Settings",
+            "groupCaption": "Settings"
         },
         "maxPostCount": {
             "title": "Limit of posts scraped inside a single page",
@@ -93,9 +95,7 @@
             "type": "boolean",
             "description": "Activate to see detailed logs",
             "default": false,
-            "sectionCaption": "Settings",
             "editor": "checkbox",
-            "groupCaption": "Settings"
         }
     },
     "required": []
