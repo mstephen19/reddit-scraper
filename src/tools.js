@@ -44,10 +44,10 @@ exports.getUrlType = (url) => {
   if (url.match(/www\.reddit\.com\/search\/.*$/)) {
     if (searchParameters.get("type") === "link") {
       type = EnumURLTypes.POSTS;
-    }
-
-    if (searchParameters.get("type") === "sr,user") {
+    } else if (searchParameters.get("type") === "sr,user") {
       type = EnumURLTypes.COMMUNITIES_AND_USERS;
+    } else {
+      type = EnumURLTypes.SEARCH;
     }
   }
 

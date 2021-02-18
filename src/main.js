@@ -12,9 +12,14 @@ const {
   blockUnusedRequests,
 } = require("./tools");
 const { createProxyWithValidation } = require("./proxy-validations");
+const { setItemsCount } = require("./saved-items");
 
 Apify.main(async () => {
   const input = validateInput(await Apify.getInput());
+
+  const dataset = await Apify.openDataset();
+  const { itemCount } = await dataset.getInfo();
+  setItemsCount(itemCount);
 
   const {
     proxy,
@@ -88,6 +93,8 @@ Apify.main(async () => {
       await Apify.utils.puppeteer.injectJQuery(page);
 
       switch (urlType) {
+        case EnumURLTypes.SEARCH:
+          return Parsers.searchParser({ requestQueue, ...context, maxItems });
         case EnumURLTypes.POSTS:
           return Parsers.postsParser({
             requestQueue,
