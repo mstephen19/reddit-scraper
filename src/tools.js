@@ -125,10 +125,7 @@ exports.convertRelativeDate = (passedTimeString) => {
     }
     throw new Error();
   } catch (err) {
-    log.warning(
-      `Error converting relative date/time: ${passedTimeString}`,
-      err
-    );
+    log.debug(`Error converting relative date/time: ${passedTimeString}`, err);
     return passedTimeString;
   }
 };
@@ -173,7 +170,7 @@ exports.validateInput = (input) => {
     log.warning("Input: startUrls is not set, set [] as default.");
   }
 
-  if (input.startUrls && input.startUrls.length) {
+  if (!input.useBuiltInSearch && input.startUrls && input.startUrls.length) {
     input.startUrls.forEach((url) => {
       const searchType = this.getSearchType(url);
       if (!searchType) {
