@@ -1,6 +1,6 @@
 {
 	"name": "reddit-scraper",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "This is a boilerplate of an Apify actor.",
 	"dependencies": {
 		"apify": "^1.0.1",
