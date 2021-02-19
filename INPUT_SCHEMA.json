@@ -43,6 +43,7 @@
         },
         "sort": {
             "title": "Sort search",
+            "description": "Sort search by Relevance, Hot, Top, New or Comments",
             "type": "string",
             "editor": "select",
             "enum": [
@@ -64,6 +65,7 @@
         },
         "time": {
             "title": "Filter by date (Posts only)",
+            "description": "Filter posts by last hour, week, day, month or year",
             "type": "string",
             "editor": "select",
             "enum": [
@@ -119,6 +121,7 @@
         "maxLeaderBoardItems": {
             "title": "Limit leaderboard items",
             "description": "Limit of communities inside a leaderboard page that will be scraped",
+            "type": "integer",
             "editor": "number",
             "prefill": 0,
             "default": 0
