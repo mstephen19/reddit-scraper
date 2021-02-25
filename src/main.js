@@ -64,13 +64,7 @@ Apify.main(async () => {
     }
   }
 
-  let proxyConfiguration;
-
-  if (proxy.useApifyProxy) {
-    proxyConfiguration = await createProxyWithValidation({
-      groups: proxy.apifyProxyGroups,
-    });
-  }
+  const proxyConfiguration = await createProxyWithValidation(proxy);
 
   const preNavigationHooks = [
     async (crawlingContext) => {
@@ -113,6 +107,19 @@ Apify.main(async () => {
             maxCommunitiesAndUsers,
             maxItems,
           });
+        case EnumURLTypes.USER:
+          return Parsers.userParser({
+            requestQueue,
+            ...context,
+            maxItems,
+          });
+        case EnumURLTypes.USER_COMMENTS:
+          return Parsers.userCommentsParser({
+            requestQueue,
+            ...context,
+            maxItems,
+            maxComments,
+          });
         case EnumURLTypes.COMMENTS:
           await Parsers.commentsParser({
             requestQueue,
@@ -124,6 +131,8 @@ Apify.main(async () => {
           return;
         case EnumURLTypes.COMMUNITY:
           return Parsers.communityParser({ requestQueue, ...context });
+        case EnumURLTypes.POPULAR:
+          return Parsers.popularParser({ requestQueue, ...context });
         case EnumURLTypes.COMMUNITY_CATEGORY:
           await Parsers.communityCategoryParser({
             requestQueue,

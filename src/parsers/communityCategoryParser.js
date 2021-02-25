@@ -17,7 +17,14 @@ exports.communityCategoryParser = async ({
   extendOutputFunction,
   maxItems,
 }) => {
-  const { community } = request.userData;
+  let { community } = request.userData;
+
+  if (!community) {
+    community = {};
+  }
+
+  community.dataType = "community";
+
   let loading = true;
   let previousPostLength = -1;
   let posts = [];
