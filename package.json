@@ -13,13 +13,18 @@
 		"eslint": "~7.2.0",
 		"eslint-config-prettier": "^7.2.0",
 		"eslint-plugin-prettier": "^3.3.1",
-		"prettier": "^2.2.1"
+		"prettier": "^2.2.1",
+		"standard-version": "^9.1.1"
 	},
 	"scripts": {
 		"start": "node src/main.js",
 		"lint": "./node_modules/.bin/eslint ./src --ext .js,.jsx",
 		"lint:fix": "./node_modules/.bin/eslint ./src --ext .js,.jsx --fix",
-		"test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1"
+		"test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1",
+		"release": "standard-version",
+		"release:minor": "standard-version --release-as minor",
+		"release:patch": "standard-version --release-as patch",
+		"release:major": "standard-version --release-as major"
 	},
 	"author": "Gustavo T Rudiger",
 	"license": "ISC",
