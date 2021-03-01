@@ -37,17 +37,22 @@ Almost any url from reddit will return a result. If the url is not supported the
 ```json
 {
   "startUrls": [
-    { "url": "https://www.reddit.com/r/worldnews/" },
-    { "url": "https://www.reddit.com/r/worldnews/hot" },
-    { "url": "https://www.reddit.com/r/popular/" },
-    { "url": "https://www.reddit.com/search/?q=news" },
-    { "url": "https://www.reddit.com/user/lukaskrivka/" },
-    { "url": "https://www.reddit.com/user/lukaskrivka/comments/" }
+    { "url": "https://www.reddit.com/r/worldnews/" }, // scraping communities
+    { "url": "https://www.reddit.com/r/worldnews/hot" }, // scraping channels within communities
+    { "url": "https://www.reddit.com/search/?q=news&type=sr%2Cuser"}, // scraping search results for users/communities
+    { "url": "https://www.reddit.com/subreddits/leaderboard/crypto/" }, // scraping popular communities
+
+    { "url": "https://www.reddit.com/user/lukaskrivka/" }, // scraping users
+    { "url": "https://www.reddit.com/user/lukaskrivka/comments/" } //scraping users' comments
+
+    { "url": "https://www.reddit.com/r/learnprogramming/comments/lp1hi4/is_webscraping_a_good_skill_to_learn_as_a_beginner/" }, //scraping posts
+    { "url": "https://www.reddit.com/search/?q=news" }, // scraping search results for posts
+    { "url": "https://www.reddit.com/r/popular/" }, // scraping popular posts
   ]
 }
 ```
 
-If you use a search url as a parameter of startUrls it will only scrape for posts. If you want to search for communities and users use the search field instead.
+If you use a search url as a parameter of startUrls it will only scrape for posts. If you want to search for communities and users use the search field or the specific url instead.
 
 ### Output
 
