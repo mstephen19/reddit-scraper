@@ -88,47 +88,48 @@
             "type": "integer",
             "description": "The maximum number of items that will be saved in the dataset. If you are scrapping for Communities&Users, remember to consider that each category inside a community is saved as a separeted item.",
             "editor": "number",
-            "prefill": 50,
-            "default": 50,
-            "sectionCaption": "Settings"
+            "prefill": 10,
+            "default": 10,
+            "sectionCaption": "Limits"
         },
         "maxPostCount": {
             "title": "Limit of posts scraped inside a single page",
             "type": "integer",
             "description": "The maximum number of posts that will be scraped for each Posts Page or Communities&Users URL",
             "editor": "number",
-            "prefill": 50,
-            "default": 50
+            "prefill": 10,
+            "default": 10
         },
         "maxComments": {
             "title": "Limit of comments scraped inside a single page",
             "type": "integer",
             "description": "The maximum number of comments that will be scraped for each Comments Page.",
             "editor": "number",
-            "prefill": 50,
-            "default": 50
+            "prefill": 10,
+            "default": 10
         },
         "maxCommunitiesAndUsers": {
             "title": "Limit of `Communities & Users`'s pages scraped",
             "type": "integer",
             "description": "The maximum number of `Communities & Users`'s pages that will be scraped if your search or startUrl is a Communities&Users type.",
             "editor": "number",
-            "prefill": 50,
-            "default": 50
+            "prefill": 10,
+            "default": 10
         },
         "maxLeaderBoardItems": {
             "title": "Limit leaderboard items",
             "description": "Limit of communities inside a leaderboard page that will be scraped",
             "type": "integer",
             "editor": "number",
-            "prefill": 20,
-            "default": 20
+            "prefill": 10,
+            "default": 10
         },
         "extendOutputFunction": {
             "title": "Extended Output Function",
             "type": "string",
             "description": "Here you can write your custom javascript code to extract custom data from the page.",
-            "editor": "javascript"
+            "editor": "javascript",
+            "sectionCaption": "Settings"
         },
         "proxy": {
             "title": "Proxy configuration",
