@@ -1,7 +1,7 @@
 {
 	"name": "reddit-scraper",
 	"version": "1.2",
-	"buildTag": "beta",
+	"buildTag": "latest",
 	"env": null,
 	"template": "apify_project"
 }

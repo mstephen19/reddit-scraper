@@ -34,7 +34,7 @@ When searching for Posts, you can set maxItems to the same number as maxPostCoun
 
 Almost any url from reddit will return a result. If the url is not supported the scraper will display a message before scraping the page. Here are some examples of urls that can be scraped:
 
-```json
+```jsonc
 {
 "scraping communities": "https://www.reddit.com/r/worldnews/", 
 "scraping channels within communities": "https://www.reddit.com/r/worldnews/hot", 

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.2.2](https://github.com/mokkapps/changelog-generator-demo/compare/v1.2.1...v1.2.2) (2021-03-02)
+
+
+### Bug Fixes
+
+* 🐛 toogle search if no startUrls are provided ([#36](https://github.com/gustavotr/reddit-scraper/issues/36)) ([90b4c83](https://github.com/mokkapps/changelog-generator-demo/commits/90b4c830624de512b5bc9f9fd03d64b7e21f3b85))
+
 ### [1.2.1](https://github.com/mokkapps/changelog-generator-demo/compare/v1.2.0...v1.2.1) (2021-02-26)
 
 
