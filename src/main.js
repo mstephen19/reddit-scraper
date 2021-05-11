@@ -10,6 +10,7 @@ const {
   validateInput,
   enableDebugMode,
   blockUnusedRequests,
+  setConfig,
 } = require("./tools");
 const { createProxyWithValidation } = require("./proxy-validations");
 const { setItemsCount } = require("./saved-items");
@@ -35,11 +36,15 @@ Apify.main(async () => {
     sort,
     time,
     maxLeaderBoardItems,
+    scrollTimeout,
   } = input;
 
   if (debugMode) {
     enableDebugMode();
   }
+
+  setConfig({ scrollTimeout: scrollTimeout * 1000 });
+
   const useBuiltInSearch = !startUrls.length;
 
   const requestList = await Apify.openRequestList(

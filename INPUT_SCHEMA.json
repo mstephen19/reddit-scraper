@@ -131,6 +131,14 @@
             "editor": "javascript",
             "sectionCaption": "Settings"
         },
+        "scrollTimeout": {
+            "title": "Page scroll timeout (seconds)",
+            "type": "integer",
+            "description": "Set the timeout in seconds in which the page will stop scrolling down to load new items",
+            "editor": "number",
+            "prefill": 40,
+            "default": 40
+        },
         "proxy": {
             "title": "Proxy configuration",
             "type": "object",
