@@ -14,9 +14,9 @@ exports.getCommunityData = async ({ url, page }) => {
     throw err;
   }
 
-  const title = await page.$eval("h1", (el) => el.innerText);
-  const title2 = await page.$eval("h2", (el) => el.innerText);
-  const createdAt = await page.$eval(
+  const communityTitle = await page.$eval("h1", (el) => el.innerText);
+  const communityTitle2 = await page.$eval("h2", (el) => el.innerText);
+  const communityCreatedAt = await page.$eval(
     '[id^="IdCard--CakeDay"]',
     (el) => el.innerText
   );
@@ -24,7 +24,7 @@ exports.getCommunityData = async ({ url, page }) => {
     "._3XFx6CfPlg-4Usgxm0gK8R",
     (el) => el.innerText
   );
-  const members = convertStringToNumber(membersRaw);
+  const communityMembers = convertStringToNumber(membersRaw);
   const categories = await page.$$eval(
     "div.wBtTDilkW_rtT2k5x3eie a",
     (elements) => {
@@ -33,10 +33,10 @@ exports.getCommunityData = async ({ url, page }) => {
     }
   );
 
-  let moderators = null;
+  let communityModerators = null;
   try {
     await page.goto(`${url}about/moderators`);
-    moderators = await page.$$eval('a[href^="/user/"]', (elements) =>
+    communityModerators = await page.$$eval('a[href^="/user/"]', (elements) =>
       elements.map((el) => el.href.split("/user/")[1])
     );
   } catch (err) {
@@ -44,11 +44,11 @@ exports.getCommunityData = async ({ url, page }) => {
   }
 
   const community = {
-    title,
-    title2,
-    createdAt,
-    members,
-    moderators,
+    communityTitle,
+    communityTitle2,
+    communityCreatedAt,
+    communityMembers,
+    communityModerators,
     communityUrl: url,
   };
 
@@ -66,13 +66,16 @@ exports.communityParser = async ({ requestQueue, request, page }) => {
   }
 
   for (const categoryUrl of categories) {
-    const category = categoryUrl.split("/").reverse().filter(Boolean)[0];
+    const communityCategory = categoryUrl
+      .split("/")
+      .reverse()
+      .filter(Boolean)[0];
     await requestQueue.addRequest(
       {
         url: categoryUrl,
         userData: {
           ...request.userData,
-          community: { ...community, category },
+          community: { ...community, communityCategory },
         },
       },
       {

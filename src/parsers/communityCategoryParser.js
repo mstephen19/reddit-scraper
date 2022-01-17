@@ -26,7 +26,7 @@ exports.communityCategoryParser = async ({
     community = {};
   }
 
-  community.dataType = "community";
+  community.dataType = "community-post";
 
   let loading = true;
   let previousPostLength = -1;
@@ -77,7 +77,7 @@ exports.communityCategoryParser = async ({
     }, extendOutputFunction);
   }
 
-  community.posts = posts
+  const parsedPosts = posts
     .filter((post) => !!post.title)
     .map((post) => ({
       ...post,
@@ -110,6 +110,10 @@ exports.communityCategoryParser = async ({
     return;
   }
   log.debug("Saving community data");
-  await Apify.pushData(community);
+  const data = parsedPosts.map((post) => ({
+    ...post,
+    ...community,
+  }));
+  await Apify.pushData(data);
   incrementItemsCount();
 };
