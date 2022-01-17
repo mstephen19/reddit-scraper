@@ -1,0 +1,21 @@
+name: Test and build latest version
+on:
+  push:
+    branches:
+      - master
+      - main
+jobs:
+  apify-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install & Test
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: npm
+      - run: npm install
+      - run: npm test
+      - run: npm i -g apify-cli
+      - run: apify login -t ${{ secrets.APIFY_TOKEN }}
+      - run: apify push --build-tag latest
