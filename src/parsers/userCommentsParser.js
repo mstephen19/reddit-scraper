@@ -16,7 +16,7 @@ exports.userCommentsParser = async ({
   if (!user) {
     const username = request.url.match(/user\/([^/]+)/)[1];
     const userUrl = request.url.split("comments")[0];
-    Object.assign(user, { user: username, userUrl });
+    Object.assign(user, { username, userUrl });
   }
 
   let loading = true;
@@ -81,11 +81,11 @@ exports.userCommentsParser = async ({
 
   Object.assign(comments, userResult);
 
-  const userComments = {
+  const userComments = comments.map((comment) => ({
     dataType: "user-comments",
     ...user,
-    comments,
-  };
+    ...comment,
+  }));
 
   if (hasReachedMaxItemsLimit({ maxItems })) {
     return;

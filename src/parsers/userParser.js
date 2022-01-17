@@ -3,15 +3,16 @@ const { EnumURLTypes } = require("../constants");
 exports.userParser = async ({ requestQueue, page, request }) => {
   const pUrl = request.url.replace(/\/$/, "");
 
-  const trophies = await page.$$eval("._3lNmiqeZrNM0E_H2ZCIpN_", (elements) =>
-    elements.map((el) => el.innerText)
+  const userTrophies = await page.$$eval(
+    "._3lNmiqeZrNM0E_H2ZCIpN_",
+    (elements) => elements.map((el) => el.innerText)
   );
   const username = request.url.match(/user\/([^/]+)/)[1];
   const userUrl = request.url.split("comments")[0];
 
   const user = {
-    trophies,
-    user: username,
+    userTrophies,
+    username,
     userUrl,
   };
 
