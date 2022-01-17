@@ -19,3 +19,9 @@ jobs:
       - run: npm i -g apify-cli
       - run: apify login -t ${{ secrets.APIFY_TOKEN }}
       - run: apify push --build-tag latest
+      - name: Configure committer
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "<>"
+      - name: Bump version
+        uses: qzb/standard-version@v1
