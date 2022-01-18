@@ -15,3 +15,6 @@ exports.EnumBaseUrl = {
   MAIN_URL: "https://www.reddit.com",
   SEARCH_URL: "https://www.reddit.com/search/",
 };
+
+// Adding SCROLL_TIMEOUT, as this was undefined
+exports.SCROLL_TIMEOUT = 60000;

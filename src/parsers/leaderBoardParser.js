@@ -22,7 +22,7 @@ exports.leaderBoardParser = async ({
   }, SCROLL_TIMEOUT);
 
   while (loading) {
-    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 1 });
+    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 3 });
 
     communities = await page.$$eval(
       "li._267lcOmg8VvXcoj9O0Q1TB a",

@@ -63,7 +63,7 @@ exports.commentsParser = async ({
   }, SCROLL_TIMEOUT);
 
   while (loading) {
-    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 1 });
+    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 3 });
 
     comments = await page.$$eval(
       "[id^=t1]._3sf33-9rVAO_v4y0pIW_CH",

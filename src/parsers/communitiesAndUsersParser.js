@@ -18,7 +18,7 @@ exports.communitiesAndUsersParser = async ({
   }, SCROLL_TIMEOUT);
 
   while (loading) {
-    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 1 });
+    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 3 });
     communities = await page.$$eval('a[href^="/r/"]', (elements) =>
       elements.map((el) => el.href)
     );

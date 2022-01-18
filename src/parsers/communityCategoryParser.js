@@ -37,7 +37,7 @@ exports.communityCategoryParser = async ({
   }, SCROLL_TIMEOUT);
 
   while (loading) {
-    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 1 });
+    await Apify.utils.puppeteer.infiniteScroll(page, { timeoutSecs: 3 });
 
     posts = await page.$$eval("div.Post", (divs) =>
       divs.map((el) => {

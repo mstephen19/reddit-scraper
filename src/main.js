@@ -87,6 +87,7 @@ Apify.main(async () => {
         return;
       }
 
+      await page.waitForSelector('div[id="2x-container"]');
       log.info(`Processing ${request.url}...`);
       log.debug(`Type: ${urlType}`);
 
