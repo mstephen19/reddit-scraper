@@ -1,3 +1,5 @@
+const { getConfig } = require("./tools");
+
 exports.EnumURLTypes = {
   COMMUNITIES_AND_USERS: "communities_and_users",
   POSTS: "posts",
@@ -17,4 +19,4 @@ exports.EnumBaseUrl = {
 };
 
 // Adding SCROLL_TIMEOUT, as this was undefined
-exports.SCROLL_TIMEOUT = 60000;
+exports.SCROLL_TIMEOUT = getConfig().scrollTimeout;
